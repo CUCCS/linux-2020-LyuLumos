@@ -1,0 +1,130 @@
+1c1
+< #### Contents of the preconfiguration file (for stretch)
+---
+> #### Contents of the preconfiguration file (for xenial)
+11a12
+> d-i localechooser/supported-locales multiselect en_US.UTF-8, zh_CN.UTF-8
+12a14,16
+> # http://askubuntu.com/questions/129651/how-do-i-configure-a-preseed-to-skip-the-language-support-question
+> d-i pkgsel/install-language-support boolean false
+> 
+30a35,36
+> # To pick a particular interface instead:
+> #d-i netcfg/choose_interface select eth1
+32d37
+< 
+35c40
+< #d-i netcfg/link_wait_timeout string 10
+---
+> d-i netcfg/link_wait_timeout string 5
+39c44
+< #d-i netcfg/dhcp_timeout string 60
+---
+> d-i netcfg/dhcp_timeout string 5
+44c49
+< #d-i netcfg/disable_autoconfig boolean true
+---
+> d-i netcfg/disable_autoconfig boolean true
+55,59c60,64
+< #d-i netcfg/get_ipaddress string 192.168.1.42
+< #d-i netcfg/get_netmask string 255.255.255.0
+< #d-i netcfg/get_gateway string 192.168.1.1
+< #d-i netcfg/get_nameservers string 192.168.1.1
+< #d-i netcfg/confirm_static boolean true
+---
+> d-i netcfg/get_ipaddress string 192.168.138.42
+> d-i netcfg/get_netmask string 255.255.255.0
+> d-i netcfg/get_gateway string 192.168.138.1
+> d-i netcfg/get_nameservers string 192.168.138.1
+> d-i netcfg/confirm_static boolean true
+71,72c76,77
+< d-i netcfg/get_hostname string unassigned-hostname
+< d-i netcfg/get_domain string unassigned-domain
+---
+> d-i netcfg/get_hostname string svr.sec.cuc.edu.cn
+> d-i netcfg/get_domain string dns.sec.cuc.edu.cn
+77c82
+< #d-i netcfg/hostname string somehost
+---
+> d-i netcfg/hostname string isc-vm-host
+114c119
+< #d-i mirror/suite string stretch
+---
+> #d-i mirror/suite string xenial
+116c121
+< #d-i mirror/udeb/suite string stretch
+---
+> #d-i mirror/udeb/suite string xenial
+135,136c140,141
+< #d-i passwd/user-fullname string Ubuntu User
+< #d-i passwd/username string ubuntu
+---
+> d-i passwd/user-fullname string cuc
+> d-i passwd/username string cuc
+138,139c143,144
+< #d-i passwd/user-password password insecure
+< #d-i passwd/user-password-again password insecure
+---
+> d-i passwd/user-password password sec.cuc.edu.cn
+> d-i passwd/user-password-again password sec.cuc.edu.cn
+161c166
+< d-i time/zone string US/Eastern
+---
+> d-i time/zone string Asia/Shanghai
+164c169
+< d-i clock-setup/ntp boolean true
+---
+> d-i clock-setup/ntp boolean false
+168,179d172
+< ### i386 specific disk storage
+< # Activate DASD disks
+< #d-i s390-dasd/dasd string 0.0.0200,0.0.0300,0.0.0400
+< 
+< # DASD configuration; by default dasdfmt (low-level format) if needed
+< #d-i s390-dasd/auto-format boolean true
+< #d-i s390-dasd/force-format boolean true
+< 
+< # zFCP activation and configuration
+< # d-i s390-zfcp/zfcp string 0.0.1b34:0x400870075678a1b2:0x201480c800000000, \
+< #                           0.0.1b34:0x400870075679a1b2:0x201480c800000000
+< 
+185c178
+< #d-i partman-auto/init_automatically_partition select biggest_free
+---
+> d-i partman-auto/init_automatically_partition select biggest_free
+212c205
+< #d-i partman-auto-lvm/guided_size string max
+---
+> d-i partman-auto-lvm/guided_size string max
+220c213
+< d-i partman-auto/choose_recipe select atomic
+---
+> d-i partman-auto/choose_recipe select multi
+342c335
+< #d-i apt-setup/use_mirror boolean false
+---
+> d-i apt-setup/use_mirror boolean false
+351c344
+< #       http://local.server/ubuntu stretch main
+---
+> #       http://local.server/ubuntu xenial main
+370c363
+< tasksel tasksel/first multiselect ubuntu-desktop
+---
+> tasksel tasksel/first multiselect server
+375c368
+< #d-i pkgsel/include string openssh-server build-essential
+---
+> d-i pkgsel/include string openssh-server
+378c371
+< #d-i pkgsel/upgrade select none
+---
+> d-i pkgsel/upgrade select none
+386c379
+< #d-i pkgsel/update-policy select none
+---
+> d-i pkgsel/update-policy select unattended-upgrades
+472d464
+< ## i386 Preseed Example
+493d484
+< 
