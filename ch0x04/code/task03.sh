@@ -12,7 +12,7 @@ function help {
 }
 
 # 统计访问来源主机TOP 100和分别对应出现的总次数
-function top100_ost {
+function top100_host {
     printf "%40s\t%s\n" "TOP100_host" "count"
     awk -F "\t" '
     NR>1 {host[$1]++;}
@@ -20,7 +20,7 @@ function top100_ost {
     ' web_log.tsv | sort -g -k 2 -r | head -100
 }
 # 统计访问来源主机TOP 100 IP和分别对应出现的总次数
-function top100_P {
+function top100_IP {
     printf "%20s\t%s\n" "TOP100_IP" "count"
     awk -F "\t" '
     NR>1 {if(match($1, /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/)) ip[$1]++;}
@@ -28,7 +28,7 @@ function top100_P {
     ' web_log.tsv | sort -g -k 2 -r | head -100
 }
 # 统计最频繁被访问的URL TOP 100
-function top100_RL {
+function top100_URL {
     printf "%55s\t%s\n" "TOP100_URL" "count"
     awk -F "\t" '
     NR>1 {url[$5]++;}
@@ -61,22 +61,22 @@ function stateCode4 {
 function specificURL {
     printf "%40s\t%s\n" "TOP100_host" "count"
     awk -F "\t" '
-    NR>1 {if("'$1'"==$5) {host[$1]++;} }
+    NR>1 {if("'"$1"'"==$5) {host[$1]++;} }
     END { for(i in host) {printf("%40s\t%d\n",i,host[i]);} }
     ' web_log.tsv | sort -g -k 2 -r | head -100
 }
 while [ "$1" != "" ];do
     case "$1" in
        "-o")
-      top100_ost
+      top100_host
       exit 0
       ;;
        "-i")
-      top100_P
+      top100_IP
       exit 0
       ;;
        "-u")
-      top100_RL
+      top100_URL
       exit 0
       ;;
        "-c")

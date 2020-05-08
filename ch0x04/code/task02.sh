@@ -12,8 +12,8 @@ function help {
 function countAge {
     awk -F "\t" '
         BEGIN {a=0; b=0; c=0;}
-        NR>1 {
-            if($6<20) {a++;}
+        $6!="Age" {
+            if($6>=0&&$6<20) {a++;}
             else if($6<=30) {b++;}
             else {c++;}
         }
@@ -30,7 +30,7 @@ function countAge {
 function countPosition {
     awk -F "\t" '
         BEGIN {sum=0}
-        NR>1 {
+        $5!="Position" {
             pos[$5]++;
             sum++;
         }
@@ -47,7 +47,7 @@ function countPosition {
 function maxName {
     awk -F "\t" '
         BEGIN {mx=-1; mi=1000;}
-        NR>1 {
+        $9!="Player" {
             len=length($9);
             names[$9]=len;
             mx=len>mx?len:mx;
@@ -86,7 +86,6 @@ function maxAge {
             }
         }' worldcupplayerinfo.tsv
 }
-
 
 
 while [ "$1" != "" ];do
