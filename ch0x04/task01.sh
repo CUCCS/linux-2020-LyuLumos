@@ -7,6 +7,7 @@ function help {
     echo "-p text            统一添加文件名前缀，不影响原始文件扩展名"
     echo "-s text            统一添加文件名后缀，不影响原始文件扩展名"
     echo "-t                 将png/svg图片统一转换为jpg格式图片"
+    echo "-h                 帮助文档"
 }
 
 # 对jpeg格式图片进行图片质量压缩
@@ -72,40 +73,40 @@ function transform2Jpg {
         if [[ ${type} != "png" && ${type} != "svg" ]]; then continue; fi;
         filename=${i%.*}".jpg"
         convert "${i}" "${filename}"
-   	    echo "${i} is transformed to ${filename}"
+   	echo "${i} is transformed to ${filename}"
     done
 }
 
 while [ "$1" != "" ];do
-    case "$1" in
-        "-q")
-            compressQuality "$2"
-            exit 0
-            ;;
-        "-r")
-            compressResolution "$2"
-            exit 0
-            ;;
-        "-w")
-            watermark "$2" "$3"
-            exit 0
-            ;;
-        "-p")
-            prefix "$2"
-            exit 0
-            ;;
-        "-s")
-            suffix "$2"
-            exit 0
-            ;;
-        "-t")
-            transform2Jpg
-            exit 0
-            ;;
-        "-h")
-            help
-            exit 0
-            ;;
-    esac
+case "$1" in
+    "-q")
+        compressQuality "$2"
+        exit 0
+        ;;
+    "-r")
+        compressResolution "$2"
+        exit 0
+        ;;
+    "-w")
+        watermark "$2" "$3"
+        exit 0
+        ;;
+    "-p")
+        prefix "$2"
+        exit 0
+        ;;
+    "-s")
+        suffix "$2"
+        exit 0
+        ;;
+    "-t")
+        transform2Jpg
+        exit 0
+        ;;
+    "-h")
+        help
+        exit 0
+        ;;
+esac
 done
 
